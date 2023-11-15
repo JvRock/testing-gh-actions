@@ -1,0 +1,19 @@
+name: Run Tests on Push
+on: push
+jobs: 
+  first-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: get code
+        run: actions/checkout@v4
+      - name: install nodejs
+        uses: actions/setup-node
+        with:
+          node-version: 18
+      - name: install dependencies
+        working-directory: ./gh-action-app
+        run: |
+          npm ci
+      - name: run tests
+        working-directory: ./gh-action-app
+        run: npm test
